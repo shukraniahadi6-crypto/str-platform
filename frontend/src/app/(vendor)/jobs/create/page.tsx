@@ -1,0 +1,1 @@
+import { JobCreationForm } from '@/components/forms/JobCreationForm'; export default function CreateJobPage() { return <><h1 className='mb-3 text-2xl font-semibold'>Create Job</h1><JobCreationForm /></>; }

@@ -1,0 +1,1 @@
+'use client'; export const SignupForm = () => <form className='space-y-3'><input className='w-full rounded border p-2' placeholder='Name' /><input className='w-full rounded border p-2' placeholder='Email' /><button className='rounded bg-green-600 px-4 py-2 text-white' type='submit'>Create account</button></form>;
