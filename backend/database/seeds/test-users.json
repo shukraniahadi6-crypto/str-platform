@@ -1,0 +1,79 @@
+[
+  {
+    "email": "vendor1@str.test",
+    "phone": "+12065551000",
+    "password_hash": "$2b$10$vendorhash",
+    "auth_provider": "LOCAL",
+    "role": "VENDOR"
+  },
+  {
+    "email": "vendor2@str.test",
+    "phone": "+12065551001",
+    "password_hash": "$2b$10$vendorhash",
+    "auth_provider": "LOCAL",
+    "role": "VENDOR"
+  },
+  {
+    "email": "vendor3@str.test",
+    "phone": "+12065551002",
+    "password_hash": "$2b$10$vendorhash",
+    "auth_provider": "LOCAL",
+    "role": "VENDOR"
+  },
+  {
+    "email": "vendor4@str.test",
+    "phone": "+12065551003",
+    "password_hash": "$2b$10$vendorhash",
+    "auth_provider": "LOCAL",
+    "role": "VENDOR"
+  },
+  {
+    "email": "vendor5@str.test",
+    "phone": "+12065551004",
+    "password_hash": "$2b$10$vendorhash",
+    "auth_provider": "LOCAL",
+    "role": "VENDOR"
+  },
+  {
+    "email": "courier1@str.test",
+    "phone": "+12065552000",
+    "password_hash": "$2b$10$courierhash",
+    "auth_provider": "LOCAL",
+    "role": "COURIER"
+  },
+  {
+    "email": "courier2@str.test",
+    "phone": "+12065552001",
+    "password_hash": "$2b$10$courierhash",
+    "auth_provider": "LOCAL",
+    "role": "COURIER"
+  },
+  {
+    "email": "courier3@str.test",
+    "phone": "+12065552002",
+    "password_hash": "$2b$10$courierhash",
+    "auth_provider": "LOCAL",
+    "role": "COURIER"
+  },
+  {
+    "email": "courier4@str.test",
+    "phone": "+12065552003",
+    "password_hash": "$2b$10$courierhash",
+    "auth_provider": "LOCAL",
+    "role": "COURIER"
+  },
+  {
+    "email": "courier5@str.test",
+    "phone": "+12065552004",
+    "password_hash": "$2b$10$courierhash",
+    "auth_provider": "LOCAL",
+    "role": "COURIER"
+  },
+  {
+    "email": "admin@str.test",
+    "phone": "+12065553000",
+    "password_hash": "$2b$10$adminhash",
+    "auth_provider": "LOCAL",
+    "role": "ADMIN"
+  }
+]
