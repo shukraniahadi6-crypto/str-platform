@@ -11,7 +11,7 @@ export const env = {
   NODE_ENV: process.env.NODE_ENV ?? 'development',
   PORT: asNumber(process.env.PORT, 8000),
   API_PREFIX: process.env.API_PREFIX ?? '/api/v1',
-  DATABASE_URL: process.env.DATABASE_URL ?? 'sqlite::memory:',
+  DATABASE_URL: process.env.DATABASE_URL ?? ':memory:',
   JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET ?? 'dev-access-secret',
   JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET ?? 'dev-refresh-secret',
   JWT_ACCESS_TTL: process.env.JWT_ACCESS_TTL ?? '15m',
