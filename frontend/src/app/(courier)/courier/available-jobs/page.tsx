@@ -1,0 +1,1 @@
+import { mockJobs } from '@/lib/mock-data'; export default function AvailableJobsPage() { return <ul className='space-y-2'>{mockJobs.map((job)=><li key={job.id} className='rounded border p-3'>{job.id} • {job.address} • ${job.payout}</li>)}</ul>; }

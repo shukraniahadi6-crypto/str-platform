@@ -1,0 +1,1 @@
+import { CourierTracking } from '@/components/maps/CourierTracking'; export default async function TrackJobPage({ params }: { params: Promise<{ id: string }> }) { const { id } = await params; return <div className='space-y-2'><h1 className='text-xl font-semibold'>Tracking {id}</h1><CourierTracking /></div>; }

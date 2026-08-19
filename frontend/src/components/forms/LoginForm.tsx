@@ -1,0 +1,1 @@
+'use client'; export const LoginForm = () => <form className='space-y-3'><input className='w-full rounded border p-2' placeholder='Email' /><input className='w-full rounded border p-2' type='password' placeholder='Password' /><button className='rounded bg-green-600 px-4 py-2 text-white' type='submit'>Login</button></form>;

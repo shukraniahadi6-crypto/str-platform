@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+@import '../styles/variables.css';
+@import '../styles/animations.css';
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f8fafc;
+  color: #0f172a;
+}
