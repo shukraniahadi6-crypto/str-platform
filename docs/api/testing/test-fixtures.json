@@ -1,0 +1,83 @@
+{
+  "users": {
+    "customer": {
+      "id": "550e8400-e29b-41d4-a716-446655440001",
+      "email": "test-customer@str.dev",
+      "name": "Test Customer",
+      "role": "customer",
+      "isVerified": true
+    },
+    "courier": {
+      "id": "550e8400-e29b-41d4-a716-446655440002",
+      "email": "test-courier@str.dev",
+      "name": "Test Courier",
+      "role": "courier",
+      "isVerified": true
+    },
+    "admin": {
+      "id": "550e8400-e29b-41d4-a716-446655440003",
+      "email": "test-admin@str.dev",
+      "name": "Test Admin",
+      "role": "admin",
+      "isVerified": true
+    }
+  },
+  "estimates": {
+    "standard": {
+      "estimateId": "est_test_standard",
+      "items": [
+        { "name": "Sofa (2-seater)", "quantity": 1, "weightClass": "heavy" },
+        { "name": "Bagged yard waste", "quantity": 3, "weightClass": "medium" }
+      ],
+      "volumeYd3": 2.8,
+      "estimatedPrice": 155.00,
+      "breakdown": {
+        "baseFee": 50.00,
+        "weightFee": 55.00,
+        "distanceFee": 30.00,
+        "disposalFee": 20.00
+      }
+    }
+  },
+  "jobs": {
+    "pending": {
+      "id": "job_test_pending",
+      "status": "pending",
+      "estimatedPrice": 155.00,
+      "scheduledAt": "2025-01-20T14:00:00Z"
+    },
+    "completed": {
+      "id": "job_test_completed",
+      "status": "completed",
+      "estimatedPrice": 155.00,
+      "finalPrice": 160.00,
+      "greenImpact": {
+        "landfillDiversionPct": 80,
+        "co2SavedKg": 85,
+        "treesEquivalent": 4,
+        "upcycledItems": 0
+      }
+    }
+  },
+  "offers": {
+    "active": {
+      "id": "offer_test_active",
+      "jobId": "job_test_pending",
+      "guaranteedPay": 60.00,
+      "distanceKm": 2.5,
+      "wasteCategory": "household",
+      "hazardBadge": null
+    }
+  },
+  "addresses": {
+    "default": {
+      "id": "addr_test_001",
+      "street": "123 Elm St",
+      "city": "Austin",
+      "state": "TX",
+      "zip": "78701",
+      "lat": 30.2672,
+      "lng": -97.7431
+    }
+  }
+}
