@@ -63,8 +63,8 @@ STR operates a diversified revenue model with five primary streams. Diversificat
 | Pro | $99,960 |
 | Premium | $63,992 |
 | Enterprise | $23,960 |
-| **Total MRR** | **$272,827** |
-| **Annual subscription revenue** | **~$3.27M** |
+| **Total MRR** | **$250,000** |
+| **Annual subscription revenue** | **~$3.0M** |
 
 ### Subscription Retention Targets
 

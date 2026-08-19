@@ -141,7 +141,7 @@ STR (Sustainable Trash Removal) is an on-demand marketplace that connects reside
 
 ### Growth KPIs
 - Monthly Active Customers (MAC)
-- Monthly Active Couriers (MAU — courier)
+- Monthly Active Couriers (MAC — courier)
 - Gross Merchandise Value (GMV)
 - Number of jobs completed per month
 - Market penetration rate (cities live)
