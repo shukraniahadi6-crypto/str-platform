@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Safety Starter",
+    "icon_url": "https://cdn.example.com/badges/1.png",
+    "description": "Safety Starter achievement badge",
+    "requirement_type": "COURSE_ID",
+    "requirement_value": "course"
+  },
+  {
+    "name": "Hazmat Hero",
+    "icon_url": "https://cdn.example.com/badges/2.png",
+    "description": "Hazmat Hero achievement badge",
+    "requirement_type": "COURSE_ID",
+    "requirement_value": "course"
+  },
+  {
+    "name": "Lift Master",
+    "icon_url": "https://cdn.example.com/badges/3.png",
+    "description": "Lift Master achievement badge",
+    "requirement_type": "COURSE_ID",
+    "requirement_value": "course"
+  },
+  {
+    "name": "Route Ninja",
+    "icon_url": "https://cdn.example.com/badges/4.png",
+    "description": "Route Ninja achievement badge",
+    "requirement_type": "COURSE_ID",
+    "requirement_value": "course"
+  },
+  {
+    "name": "Eco Champion",
+    "icon_url": "https://cdn.example.com/badges/5.png",
+    "description": "Eco Champion achievement badge",
+    "requirement_type": "COURSE_ID",
+    "requirement_value": "course"
+  },
+  {
+    "name": "Donation Driver",
+    "icon_url": "https://cdn.example.com/badges/6.png",
+    "description": "Donation Driver achievement badge",
+    "requirement_type": "COURSE_ID",
+    "requirement_value": "course"
+  },
+  {
+    "name": "Five Star Service",
+    "icon_url": "https://cdn.example.com/badges/7.png",
+    "description": "Five Star Service achievement badge",
+    "requirement_type": "RATING_THRESHOLD",
+    "requirement_value": "4.5"
+  },
+  {
+    "name": "Speed Runner",
+    "icon_url": "https://cdn.example.com/badges/8.png",
+    "description": "Speed Runner achievement badge",
+    "requirement_type": "RATING_THRESHOLD",
+    "requirement_value": "4.6"
+  },
+  {
+    "name": "Night Shift Pro",
+    "icon_url": "https://cdn.example.com/badges/9.png",
+    "description": "Night Shift Pro achievement badge",
+    "requirement_type": "RATING_THRESHOLD",
+    "requirement_value": "4.7"
+  },
+  {
+    "name": "Community Impact",
+    "icon_url": "https://cdn.example.com/badges/10.png",
+    "description": "Community Impact achievement badge",
+    "requirement_type": "RATING_THRESHOLD",
+    "requirement_value": "4.8"
+  }
+]

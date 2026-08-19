@@ -1,0 +1,142 @@
+[
+  {
+    "name": "Transfer Station 1",
+    "latitude": 47.5,
+    "longitude": -122.35,
+    "capacity": 300,
+    "hours": {
+      "open": "07:00",
+      "close": "18:00"
+    },
+    "waste_classes_accepted": [
+      "general",
+      "recycle"
+    ]
+  },
+  {
+    "name": "Transfer Station 2",
+    "latitude": 47.51,
+    "longitude": -122.33999999999999,
+    "capacity": 325,
+    "hours": {
+      "open": "07:00",
+      "close": "18:00"
+    },
+    "waste_classes_accepted": [
+      "general",
+      "recycle"
+    ]
+  },
+  {
+    "name": "Transfer Station 3",
+    "latitude": 47.52,
+    "longitude": -122.33,
+    "capacity": 350,
+    "hours": {
+      "open": "07:00",
+      "close": "18:00"
+    },
+    "waste_classes_accepted": [
+      "general",
+      "recycle"
+    ]
+  },
+  {
+    "name": "Transfer Station 4",
+    "latitude": 47.53,
+    "longitude": -122.32,
+    "capacity": 375,
+    "hours": {
+      "open": "07:00",
+      "close": "18:00"
+    },
+    "waste_classes_accepted": [
+      "general",
+      "recycle"
+    ]
+  },
+  {
+    "name": "Transfer Station 5",
+    "latitude": 47.54,
+    "longitude": -122.30999999999999,
+    "capacity": 400,
+    "hours": {
+      "open": "07:00",
+      "close": "18:00"
+    },
+    "waste_classes_accepted": [
+      "general",
+      "recycle"
+    ]
+  },
+  {
+    "name": "Transfer Station 6",
+    "latitude": 47.55,
+    "longitude": -122.3,
+    "capacity": 425,
+    "hours": {
+      "open": "07:00",
+      "close": "18:00"
+    },
+    "waste_classes_accepted": [
+      "general",
+      "recycle"
+    ]
+  },
+  {
+    "name": "Transfer Station 7",
+    "latitude": 47.56,
+    "longitude": -122.28999999999999,
+    "capacity": 450,
+    "hours": {
+      "open": "07:00",
+      "close": "18:00"
+    },
+    "waste_classes_accepted": [
+      "general",
+      "recycle"
+    ]
+  },
+  {
+    "name": "Transfer Station 8",
+    "latitude": 47.57,
+    "longitude": -122.28,
+    "capacity": 475,
+    "hours": {
+      "open": "07:00",
+      "close": "18:00"
+    },
+    "waste_classes_accepted": [
+      "general",
+      "recycle"
+    ]
+  },
+  {
+    "name": "Transfer Station 9",
+    "latitude": 47.58,
+    "longitude": -122.27,
+    "capacity": 500,
+    "hours": {
+      "open": "07:00",
+      "close": "18:00"
+    },
+    "waste_classes_accepted": [
+      "general",
+      "recycle"
+    ]
+  },
+  {
+    "name": "Transfer Station 10",
+    "latitude": 47.59,
+    "longitude": -122.25999999999999,
+    "capacity": 525,
+    "hours": {
+      "open": "07:00",
+      "close": "18:00"
+    },
+    "waste_classes_accepted": [
+      "general",
+      "recycle"
+    ]
+  }
+]

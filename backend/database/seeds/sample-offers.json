@@ -1,0 +1,62 @@
+[
+  {
+    "upfront_pay": 35.0,
+    "estimated_distance": 1.2,
+    "expires_in_minutes": 30,
+    "status": "PENDING"
+  },
+  {
+    "upfront_pay": 37.5,
+    "estimated_distance": 1.9,
+    "expires_in_minutes": 30,
+    "status": "PENDING"
+  },
+  {
+    "upfront_pay": 40.0,
+    "estimated_distance": 2.6,
+    "expires_in_minutes": 30,
+    "status": "PENDING"
+  },
+  {
+    "upfront_pay": 42.5,
+    "estimated_distance": 3.3,
+    "expires_in_minutes": 30,
+    "status": "PENDING"
+  },
+  {
+    "upfront_pay": 45.0,
+    "estimated_distance": 4.0,
+    "expires_in_minutes": 30,
+    "status": "PENDING"
+  },
+  {
+    "upfront_pay": 47.5,
+    "estimated_distance": 4.7,
+    "expires_in_minutes": 30,
+    "status": "PENDING"
+  },
+  {
+    "upfront_pay": 50.0,
+    "estimated_distance": 5.4,
+    "expires_in_minutes": 30,
+    "status": "PENDING"
+  },
+  {
+    "upfront_pay": 52.5,
+    "estimated_distance": 6.1,
+    "expires_in_minutes": 30,
+    "status": "PENDING"
+  },
+  {
+    "upfront_pay": 55.0,
+    "estimated_distance": 6.8,
+    "expires_in_minutes": 30,
+    "status": "PENDING"
+  },
+  {
+    "upfront_pay": 57.5,
+    "estimated_distance": 7.5,
+    "expires_in_minutes": 30,
+    "status": "PENDING"
+  }
+]

@@ -1,0 +1,252 @@
+[
+  {
+    "debit_amount": 20.0,
+    "credit_amount": 0,
+    "transaction_type": "JOB_CHARGE"
+  },
+  {
+    "debit_amount": 0,
+    "credit_amount": 20.0,
+    "transaction_type": "JOB_PAYOUT"
+  },
+  {
+    "debit_amount": 21.5,
+    "credit_amount": 0,
+    "transaction_type": "JOB_CHARGE"
+  },
+  {
+    "debit_amount": 0,
+    "credit_amount": 21.5,
+    "transaction_type": "JOB_PAYOUT"
+  },
+  {
+    "debit_amount": 23.0,
+    "credit_amount": 0,
+    "transaction_type": "JOB_CHARGE"
+  },
+  {
+    "debit_amount": 0,
+    "credit_amount": 23.0,
+    "transaction_type": "JOB_PAYOUT"
+  },
+  {
+    "debit_amount": 24.5,
+    "credit_amount": 0,
+    "transaction_type": "JOB_CHARGE"
+  },
+  {
+    "debit_amount": 0,
+    "credit_amount": 24.5,
+    "transaction_type": "JOB_PAYOUT"
+  },
+  {
+    "debit_amount": 26.0,
+    "credit_amount": 0,
+    "transaction_type": "JOB_CHARGE"
+  },
+  {
+    "debit_amount": 0,
+    "credit_amount": 26.0,
+    "transaction_type": "JOB_PAYOUT"
+  },
+  {
+    "debit_amount": 27.5,
+    "credit_amount": 0,
+    "transaction_type": "JOB_CHARGE"
+  },
+  {
+    "debit_amount": 0,
+    "credit_amount": 27.5,
+    "transaction_type": "JOB_PAYOUT"
+  },
+  {
+    "debit_amount": 29.0,
+    "credit_amount": 0,
+    "transaction_type": "JOB_CHARGE"
+  },
+  {
+    "debit_amount": 0,
+    "credit_amount": 29.0,
+    "transaction_type": "JOB_PAYOUT"
+  },
+  {
+    "debit_amount": 30.5,
+    "credit_amount": 0,
+    "transaction_type": "JOB_CHARGE"
+  },
+  {
+    "debit_amount": 0,
+    "credit_amount": 30.5,
+    "transaction_type": "JOB_PAYOUT"
+  },
+  {
+    "debit_amount": 32.0,
+    "credit_amount": 0,
+    "transaction_type": "JOB_CHARGE"
+  },
+  {
+    "debit_amount": 0,
+    "credit_amount": 32.0,
+    "transaction_type": "JOB_PAYOUT"
+  },
+  {
+    "debit_amount": 33.5,
+    "credit_amount": 0,
+    "transaction_type": "JOB_CHARGE"
+  },
+  {
+    "debit_amount": 0,
+    "credit_amount": 33.5,
+    "transaction_type": "JOB_PAYOUT"
+  },
+  {
+    "debit_amount": 35.0,
+    "credit_amount": 0,
+    "transaction_type": "JOB_CHARGE"
+  },
+  {
+    "debit_amount": 0,
+    "credit_amount": 35.0,
+    "transaction_type": "JOB_PAYOUT"
+  },
+  {
+    "debit_amount": 36.5,
+    "credit_amount": 0,
+    "transaction_type": "JOB_CHARGE"
+  },
+  {
+    "debit_amount": 0,
+    "credit_amount": 36.5,
+    "transaction_type": "JOB_PAYOUT"
+  },
+  {
+    "debit_amount": 38.0,
+    "credit_amount": 0,
+    "transaction_type": "JOB_CHARGE"
+  },
+  {
+    "debit_amount": 0,
+    "credit_amount": 38.0,
+    "transaction_type": "JOB_PAYOUT"
+  },
+  {
+    "debit_amount": 39.5,
+    "credit_amount": 0,
+    "transaction_type": "JOB_CHARGE"
+  },
+  {
+    "debit_amount": 0,
+    "credit_amount": 39.5,
+    "transaction_type": "JOB_PAYOUT"
+  },
+  {
+    "debit_amount": 41.0,
+    "credit_amount": 0,
+    "transaction_type": "JOB_CHARGE"
+  },
+  {
+    "debit_amount": 0,
+    "credit_amount": 41.0,
+    "transaction_type": "JOB_PAYOUT"
+  },
+  {
+    "debit_amount": 42.5,
+    "credit_amount": 0,
+    "transaction_type": "JOB_CHARGE"
+  },
+  {
+    "debit_amount": 0,
+    "credit_amount": 42.5,
+    "transaction_type": "JOB_PAYOUT"
+  },
+  {
+    "debit_amount": 44.0,
+    "credit_amount": 0,
+    "transaction_type": "JOB_CHARGE"
+  },
+  {
+    "debit_amount": 0,
+    "credit_amount": 44.0,
+    "transaction_type": "JOB_PAYOUT"
+  },
+  {
+    "debit_amount": 45.5,
+    "credit_amount": 0,
+    "transaction_type": "JOB_CHARGE"
+  },
+  {
+    "debit_amount": 0,
+    "credit_amount": 45.5,
+    "transaction_type": "JOB_PAYOUT"
+  },
+  {
+    "debit_amount": 47.0,
+    "credit_amount": 0,
+    "transaction_type": "JOB_CHARGE"
+  },
+  {
+    "debit_amount": 0,
+    "credit_amount": 47.0,
+    "transaction_type": "JOB_PAYOUT"
+  },
+  {
+    "debit_amount": 48.5,
+    "credit_amount": 0,
+    "transaction_type": "JOB_CHARGE"
+  },
+  {
+    "debit_amount": 0,
+    "credit_amount": 48.5,
+    "transaction_type": "JOB_PAYOUT"
+  },
+  {
+    "debit_amount": 50.0,
+    "credit_amount": 0,
+    "transaction_type": "JOB_CHARGE"
+  },
+  {
+    "debit_amount": 0,
+    "credit_amount": 50.0,
+    "transaction_type": "JOB_PAYOUT"
+  },
+  {
+    "debit_amount": 51.5,
+    "credit_amount": 0,
+    "transaction_type": "JOB_CHARGE"
+  },
+  {
+    "debit_amount": 0,
+    "credit_amount": 51.5,
+    "transaction_type": "JOB_PAYOUT"
+  },
+  {
+    "debit_amount": 53.0,
+    "credit_amount": 0,
+    "transaction_type": "JOB_CHARGE"
+  },
+  {
+    "debit_amount": 0,
+    "credit_amount": 53.0,
+    "transaction_type": "JOB_PAYOUT"
+  },
+  {
+    "debit_amount": 54.5,
+    "credit_amount": 0,
+    "transaction_type": "JOB_CHARGE"
+  },
+  {
+    "debit_amount": 0,
+    "credit_amount": 54.5,
+    "transaction_type": "JOB_PAYOUT"
+  },
+  {
+    "debit_amount": 56.0,
+    "credit_amount": 0,
+    "transaction_type": "JOB_CHARGE"
+  },
+  {
+    "debit_amount": 0,
+    "credit_amount": 56.0,
+    "transaction_type": "JOB_PAYOUT"
+  }
+]
