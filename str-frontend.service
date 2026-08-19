@@ -1,0 +1,13 @@
+[Unit]
+Description=STR Platform Next.js Frontend Service
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/var/www/str-platform/apps/web
+ExecStart=/usr/bin/npm run start
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
