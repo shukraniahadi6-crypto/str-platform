@@ -1,0 +1,1621 @@
+openapi: 3.0.3
+info:
+  title: STR Platform API
+  version: "1.0.0"
+  description: |
+    Complete REST API specification for the STR (Shuk Trash Removal) Platform — a DoorDash-style
+    on-demand junk removal and eco-services platform.
+
+    ## Authentication
+    Most endpoints require a ******** in the `Authorization` header:
+    ```
+    Authorization: ******
+    ```
+
+    ## Base URL
+    ```
+    https://api.strplatform.com/api/v1
+    ```
+
+    ## Rate Limiting
+    Requests are rate-limited per tier. See the `X-RateLimit-*` response headers for current status.
+  contact:
+    name: STR Platform Engineering
+    email: engineering@strplatform.com
+  license:
+    name: Private
+
+servers:
+  - url: https://api.strplatform.com/api/v1
+    description: Production
+  - url: https://staging-api.strplatform.com/api/v1
+    description: Staging
+  - url: http://localhost:4000/api/v1
+    description: Local development
+
+tags:
+  - name: auth
+    description: Authentication & token management
+  - name: users
+    description: User profile & preferences
+  - name: jobs
+    description: Job creation & lifecycle management
+  - name: offers
+    description: Hauler offer pings & bidding
+  - name: tracking
+    description: Live GPS tracking & status updates
+  - name: batches
+    description: Neighborhood batching & group discounts
+  - name: upcycle
+    description: Upcycling & donation matching
+  - name: ledger
+    description: Financial ledger & payouts
+  - name: sds
+    description: Safety Data Sheet & hazard management
+  - name: academy
+    description: Training courses & badges
+  - name: admin
+    description: Admin & HQ operations
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+
+  schemas:
+    # ─── Shared ──────────────────────────────────────────────────────────────
+    Error:
+      type: object
+      required: [code, message, status]
+      properties:
+        code:
+          type: string
+          example: JOB_NOT_FOUND
+        message:
+          type: string
+          example: The requested job could not be found.
+        status:
+          type: integer
+          example: 404
+        details:
+          type: object
+          additionalProperties: true
+
+    Pagination:
+      type: object
+      properties:
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+        hasNext:
+          type: boolean
+        cursor:
+          type: string
+          nullable: true
+
+    # ─── Auth ─────────────────────────────────────────────────────────────────
+    RegisterRequest:
+      type: object
+      required: [email, password, name, role]
+      properties:
+        email:
+          type: string
+          format: email
+          example: jane@example.com
+        password:
+          type: string
+          minLength: 8
+          example: "Str0ng!Pass"
+        name:
+          type: string
+          example: Jane Smith
+        role:
+          type: string
+          enum: [customer, courier]
+          example: customer
+        phone:
+          type: string
+          example: "+15551234567"
+
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+
+    AuthTokens:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+        expiresIn:
+          type: integer
+          description: Access token TTL in seconds
+          example: 900
+
+    # ─── User ─────────────────────────────────────────────────────────────────
+    UserProfile:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+        name:
+          type: string
+        role:
+          type: string
+          enum: [customer, courier, admin]
+        phone:
+          type: string
+          nullable: true
+        avatarUrl:
+          type: string
+          nullable: true
+        isVerified:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        preferences:
+          $ref: "#/components/schemas/UserPreferences"
+
+    UserPreferences:
+      type: object
+      properties:
+        notifications:
+          type: object
+          properties:
+            email:
+              type: boolean
+            sms:
+              type: boolean
+            push:
+              type: boolean
+        defaultPaymentMethodId:
+          type: string
+          nullable: true
+        language:
+          type: string
+          default: en
+
+    # ─── Job ──────────────────────────────────────────────────────────────────
+    JobEstimateRequest:
+      type: object
+      required: [imageUrls]
+      properties:
+        imageUrls:
+          type: array
+          items:
+            type: string
+            format: uri
+          minItems: 1
+          maxItems: 3
+        address:
+          type: string
+        notes:
+          type: string
+
+    JobEstimateResponse:
+      type: object
+      properties:
+        estimateId:
+          type: string
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              quantity:
+                type: integer
+              weightClass:
+                type: string
+                enum: [light, medium, heavy, very_heavy]
+        volumeYd3:
+          type: number
+        estimatedPrice:
+          type: number
+        breakdown:
+          type: object
+          properties:
+            baseFee:
+              type: number
+            weightFee:
+              type: number
+            distanceFee:
+              type: number
+            disposalFee:
+              type: number
+        expiresAt:
+          type: string
+          format: date-time
+
+    CreateJobRequest:
+      type: object
+      required: [estimateId, addressId, scheduledAt]
+      properties:
+        estimateId:
+          type: string
+        addressId:
+          type: string
+        scheduledAt:
+          type: string
+          format: date-time
+        notes:
+          type: string
+        upcyclableItemIds:
+          type: array
+          items:
+            type: string
+        allowBatching:
+          type: boolean
+          default: true
+
+    Job:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        customerId:
+          type: string
+          format: uuid
+        courierId:
+          type: string
+          format: uuid
+          nullable: true
+        status:
+          type: string
+          enum:
+            - pending
+            - dispatching
+            - offer_sent
+            - accepted
+            - en_route
+            - arrived
+            - loading
+            - in_transit
+            - completed
+            - cancelled
+        estimatedPrice:
+          type: number
+        finalPrice:
+          type: number
+          nullable: true
+        scheduledAt:
+          type: string
+          format: date-time
+        address:
+          type: object
+          properties:
+            street:
+              type: string
+            city:
+              type: string
+            lat:
+              type: number
+            lng:
+              type: number
+        items:
+          type: array
+          items:
+            type: object
+        greenImpact:
+          $ref: "#/components/schemas/GreenImpact"
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    # ─── Offer ────────────────────────────────────────────────────────────────
+    OfferPing:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        jobId:
+          type: string
+          format: uuid
+        courierId:
+          type: string
+          format: uuid
+        guaranteedPay:
+          type: number
+        distanceKm:
+          type: number
+        wasteCategory:
+          type: string
+        hazardBadge:
+          type: string
+          nullable: true
+        routePreview:
+          type: object
+          properties:
+            pickupAddress:
+              type: string
+            dropoffAddress:
+              type: string
+            estimatedDurationMin:
+              type: integer
+        expiresAt:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum: [pending, accepted, declined, expired]
+
+    # ─── Green Impact ─────────────────────────────────────────────────────────
+    GreenImpact:
+      type: object
+      properties:
+        landfillDiversionPct:
+          type: number
+          example: 85
+        co2SavedKg:
+          type: number
+          example: 140
+        treesEquivalent:
+          type: integer
+          example: 6
+        upcycledItems:
+          type: integer
+          example: 2
+        shareCard:
+          type: string
+          description: URL to shareable green receipt card
+          nullable: true
+
+    # ─── Ledger ───────────────────────────────────────────────────────────────
+    LedgerEntry:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+          enum: [debit, credit]
+        amount:
+          type: number
+        currency:
+          type: string
+          default: USD
+        description:
+          type: string
+        relatedJobId:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+
+    PayoutRequest:
+      type: object
+      required: [amount]
+      properties:
+        amount:
+          type: number
+          minimum: 1
+        destinationAccountId:
+          type: string
+
+# ─── Paths ────────────────────────────────────────────────────────────────────
+
+paths:
+  # ── Auth ────────────────────────────────────────────────────────────────────
+
+  /auth/register:
+    post:
+      tags: [auth]
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterRequest"
+            example:
+              email: jane@example.com
+              password: "Str0ng!Pass"
+              name: Jane Smith
+              role: customer
+              phone: "+15551234567"
+      responses:
+        "201":
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/AuthTokens"
+                  - type: object
+                    properties:
+                      user:
+                        $ref: "#/components/schemas/UserProfile"
+        "409":
+          description: Email already registered
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              example:
+                code: EMAIL_ALREADY_EXISTS
+                message: An account with this email already exists.
+                status: 409
+        "422":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /auth/login:
+    post:
+      tags: [auth]
+      summary: Authenticate and receive tokens
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        "200":
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/AuthTokens"
+                  - type: object
+                    properties:
+                      user:
+                        $ref: "#/components/schemas/UserProfile"
+        "401":
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              example:
+                code: INVALID_CREDENTIALS
+                message: Email or password is incorrect.
+                status: 401
+
+  /auth/refresh:
+    post:
+      tags: [auth]
+      summary: Refresh access token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [refreshToken]
+              properties:
+                refreshToken:
+                  type: string
+      responses:
+        "200":
+          description: New access token issued
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthTokens"
+        "401":
+          description: Invalid or expired refresh token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /auth/logout:
+    post:
+      tags: [auth]
+      summary: Revoke refresh token
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [refreshToken]
+              properties:
+                refreshToken:
+                  type: string
+      responses:
+        "204":
+          description: Token revoked successfully
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /auth/password/reset-request:
+    post:
+      tags: [auth]
+      summary: Request password reset email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email:
+                  type: string
+                  format: email
+      responses:
+        "204":
+          description: Reset email sent (or silently ignored if email not found)
+
+  /auth/password/reset:
+    post:
+      tags: [auth]
+      summary: Reset password using token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [token, newPassword]
+              properties:
+                token:
+                  type: string
+                newPassword:
+                  type: string
+                  minLength: 8
+      responses:
+        "200":
+          description: Password reset successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthTokens"
+        "400":
+          description: Invalid or expired token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  # ── Users ───────────────────────────────────────────────────────────────────
+
+  /users/me:
+    get:
+      tags: [users]
+      summary: Get current user profile
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: User profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    patch:
+      tags: [users]
+      summary: Update current user profile
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                phone:
+                  type: string
+                avatarUrl:
+                  type: string
+      responses:
+        "200":
+          description: Updated profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+
+  /users/me/preferences:
+    put:
+      tags: [users]
+      summary: Update user preferences
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserPreferences"
+      responses:
+        "200":
+          description: Preferences updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserPreferences"
+
+  /users/me/verify:
+    post:
+      tags: [users]
+      summary: Submit identity verification documents
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [documentType, documentUrl]
+              properties:
+                documentType:
+                  type: string
+                  enum: [drivers_license, passport, national_id]
+                documentUrl:
+                  type: string
+                  format: uri
+                vehicleRegistrationUrl:
+                  type: string
+                  format: uri
+      responses:
+        "202":
+          description: Verification documents submitted; review pending
+        "409":
+          description: Verification already submitted or approved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  # ── Jobs ────────────────────────────────────────────────────────────────────
+
+  /jobs/estimate:
+    post:
+      tags: [jobs]
+      summary: AI snap-to-estimate from waste photos
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/JobEstimateRequest"
+            example:
+              imageUrls:
+                - "https://s3.strplatform.com/uploads/waste-pile-1.jpg"
+              address: "123 Elm St, Austin TX"
+      responses:
+        "200":
+          description: Estimate generated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobEstimateResponse"
+        "422":
+          description: Could not analyze images
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /jobs:
+    post:
+      tags: [jobs]
+      summary: Create a new job from an estimate
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateJobRequest"
+      responses:
+        "201":
+          description: Job created and dispatch initiated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Job"
+        "400":
+          description: Estimate expired or invalid
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    get:
+      tags: [jobs]
+      summary: List jobs for the current user
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: status
+          schema:
+            type: string
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 20
+        - in: query
+          name: cursor
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Paginated list of jobs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Job"
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+
+  /jobs/{jobId}:
+    get:
+      tags: [jobs]
+      summary: Get job details
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: jobId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Job details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Job"
+        "404":
+          description: Job not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              example:
+                code: JOB_NOT_FOUND
+                message: No job found with the given ID.
+                status: 404
+
+  /jobs/{jobId}/cancel:
+    post:
+      tags: [jobs]
+      summary: Cancel a job
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: jobId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+      responses:
+        "200":
+          description: Job cancelled
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Job"
+        "409":
+          description: Job cannot be cancelled in its current state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  # ── Offers ──────────────────────────────────────────────────────────────────
+
+  /offers/active:
+    get:
+      tags: [offers]
+      summary: List active offer pings for the current courier
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: List of active offers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OfferPing"
+
+  /offers/{offerId}/accept:
+    post:
+      tags: [offers]
+      summary: Accept a job offer
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: offerId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Offer accepted; job assigned to courier
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Job"
+        "409":
+          description: Offer expired or already accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /offers/{offerId}/decline:
+    post:
+      tags: [offers]
+      summary: Decline a job offer
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: offerId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Offer declined
+
+  # ── Tracking ────────────────────────────────────────────────────────────────
+
+  /tracking/{jobId}:
+    get:
+      tags: [tracking]
+      summary: Get current tracking state for a job
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: jobId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Tracking state
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jobId:
+                    type: string
+                  status:
+                    type: string
+                  courierLocation:
+                    type: object
+                    nullable: true
+                    properties:
+                      lat:
+                        type: number
+                      lng:
+                        type: number
+                      heading:
+                        type: number
+                      speed:
+                        type: number
+                  etaMinutes:
+                    type: integer
+                    nullable: true
+                  lastUpdated:
+                    type: string
+                    format: date-time
+
+  /tracking/{jobId}/location:
+    post:
+      tags: [tracking]
+      summary: Update courier location (courier only)
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: jobId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [lat, lng]
+              properties:
+                lat:
+                  type: number
+                lng:
+                  type: number
+                heading:
+                  type: number
+                speed:
+                  type: number
+      responses:
+        "204":
+          description: Location updated
+
+  # ── Batches ─────────────────────────────────────────────────────────────────
+
+  /batches/nearby:
+    get:
+      tags: [batches]
+      summary: Find open batches near a location
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: lat
+          required: true
+          schema:
+            type: number
+        - in: query
+          name: lng
+          required: true
+          schema:
+            type: number
+        - in: query
+          name: radiusM
+          schema:
+            type: integer
+            default: 500
+      responses:
+        "200":
+          description: Open batches nearby
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    batchId:
+                      type: string
+                    scheduledAt:
+                      type: string
+                      format: date-time
+                    discountPct:
+                      type: number
+                    participantCount:
+                      type: integer
+                    pickupWindowEnd:
+                      type: string
+                      format: date-time
+
+  /batches/{batchId}/join:
+    post:
+      tags: [batches]
+      summary: Join an existing neighborhood batch
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: batchId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateJobRequest"
+      responses:
+        "201":
+          description: Job created and added to batch
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Job"
+        "409":
+          description: Batch is full or closed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  # ── Upcycle ─────────────────────────────────────────────────────────────────
+
+  /upcycle/partners:
+    get:
+      tags: [upcycle]
+      summary: List upcycle & donation partner locations
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: lat
+          schema:
+            type: number
+        - in: query
+          name: lng
+          schema:
+            type: number
+      responses:
+        "200":
+          description: Partner locations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    address:
+                      type: string
+                    acceptedCategories:
+                      type: array
+                      items:
+                        type: string
+                    distanceKm:
+                      type: number
+
+  /jobs/{jobId}/green-impact:
+    get:
+      tags: [upcycle]
+      summary: Get green impact card for a completed job
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: jobId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Green impact details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GreenImpact"
+        "404":
+          description: Job not found or not completed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  # ── Ledger ──────────────────────────────────────────────────────────────────
+
+  /ledger/balance:
+    get:
+      tags: [ledger]
+      summary: Get current balance for authenticated user
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Balance
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  available:
+                    type: number
+                  pending:
+                    type: number
+                  currency:
+                    type: string
+                    default: USD
+
+  /ledger/entries:
+    get:
+      tags: [ledger]
+      summary: Get ledger transaction history
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 20
+        - in: query
+          name: cursor
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Ledger entries
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/LedgerEntry"
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+
+  /ledger/payout:
+    post:
+      tags: [ledger]
+      summary: Request instant payout (couriers only)
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PayoutRequest"
+      responses:
+        "202":
+          description: Payout initiated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payoutId:
+                    type: string
+                  estimatedArrival:
+                    type: string
+                    format: date-time
+        "400":
+          description: Insufficient balance
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              example:
+                code: INSUFFICIENT_BALANCE
+                message: Requested payout exceeds available balance.
+                status: 400
+
+  # ── SDS ─────────────────────────────────────────────────────────────────────
+
+  /sds/analyze:
+    post:
+      tags: [sds]
+      summary: Analyze waste images for hazardous materials
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [imageUrls]
+              properties:
+                imageUrls:
+                  type: array
+                  items:
+                    type: string
+                    format: uri
+      responses:
+        "200":
+          description: Hazard analysis
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hazardLevel:
+                    type: string
+                    enum: [none, low, medium, high, critical]
+                  detectedHazards:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        sdsUrl:
+                          type: string
+                        handlingGuidance:
+                          type: string
+                  requiresAdminReview:
+                    type: boolean
+
+  /sds/cases:
+    get:
+      tags: [sds]
+      summary: List SDS cases (admin only)
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: status
+          schema:
+            type: string
+            enum: [pending, reviewed, resolved]
+      responses:
+        "200":
+          description: SDS cases
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+
+  # ── Academy ─────────────────────────────────────────────────────────────────
+
+  /academy/courses:
+    get:
+      tags: [academy]
+      summary: List available training courses
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Courses list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    title:
+                      type: string
+                    description:
+                      type: string
+                    badge:
+                      type: string
+                    estimatedMinutes:
+                      type: integer
+                    isCompleted:
+                      type: boolean
+
+  /academy/courses/{courseId}/complete:
+    post:
+      tags: [academy]
+      summary: Submit course quiz answers
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: courseId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [answers]
+              properties:
+                answers:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      questionId:
+                        type: string
+                      selectedOption:
+                        type: integer
+      responses:
+        "200":
+          description: Quiz result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  passed:
+                    type: boolean
+                  score:
+                    type: integer
+                  badge:
+                    type: string
+                    nullable: true
+
+  /academy/badges:
+    get:
+      tags: [academy]
+      summary: Get earned badges for current courier
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Badges
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    iconUrl:
+                      type: string
+                    earnedAt:
+                      type: string
+                      format: date-time
+
+  # ── Admin ───────────────────────────────────────────────────────────────────
+
+  /admin/users:
+    get:
+      tags: [admin]
+      summary: List all users (admin only)
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: role
+          schema:
+            type: string
+        - in: query
+          name: status
+          schema:
+            type: string
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 50
+        - in: query
+          name: cursor
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Paginated user list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/UserProfile"
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /admin/jobs:
+    get:
+      tags: [admin]
+      summary: List all jobs with filters (admin only)
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: status
+          schema:
+            type: string
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+      responses:
+        "200":
+          description: Jobs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Job"
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+
+  /admin/analytics/overview:
+    get:
+      tags: [admin]
+      summary: Platform overview analytics
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Analytics summary
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalJobs:
+                    type: integer
+                  completedJobs:
+                    type: integer
+                  activeHaulers:
+                    type: integer
+                  totalRevenue:
+                    type: number
+                  landfillDiversionPct:
+                    type: number
+                  co2SavedKg:
+                    type: number
+
+  /admin/disputes:
+    get:
+      tags: [admin]
+      summary: List open disputes
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Disputes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+
+  /admin/disputes/{disputeId}/resolve:
+    post:
+      tags: [admin]
+      summary: Resolve a dispute
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: disputeId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [resolution, refundAmount]
+              properties:
+                resolution:
+                  type: string
+                  enum: [refund_full, refund_partial, no_refund]
+                refundAmount:
+                  type: number
+                notes:
+                  type: string
+      responses:
+        "200":
+          description: Dispute resolved
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /admin/batching/config:
+    get:
+      tags: [admin]
+      summary: Get neighborhood batching configuration
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Batching config
+          content:
+            application/json:
+              schema:
+                type: object
+    put:
+      tags: [admin]
+      summary: Update neighborhood batching configuration
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                radiusM:
+                  type: integer
+                  example: 500
+                maxParticipants:
+                  type: integer
+                  example: 10
+                discountPct:
+                  type: number
+                  example: 25
+      responses:
+        "200":
+          description: Config updated
+          content:
+            application/json:
+              schema:
+                type: object
