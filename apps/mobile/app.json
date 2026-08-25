@@ -1,0 +1,104 @@
+{
+  "expo": {
+    "name": "STR Courier",
+    "slug": "str-courier-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "strcourier",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0B6E4F"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.strplatform.courier",
+      "config": {
+        "googleMapsApiKey": "GOOGLE_MAPS_API_KEY"
+      },
+      "infoPlist": {
+        "NSCameraUsageDescription": "Allow STR to capture job photos and documentation.",
+        "NSPhotoLibraryUsageDescription": "Allow STR to select photos for job documentation.",
+        "NSLocationWhenInUseUsageDescription": "Allow STR to access your location for routing and safety.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Allow STR to track your location in the background while jobs are active.",
+        "NSUserTrackingUsageDescription": "Allow STR to improve job tracking accuracy.",
+        "UIBackgroundModes": ["location", "remote-notification"]
+      }
+    },
+    "android": {
+      "package": "com.strplatform.courier",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0B6E4F"
+      },
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION",
+        "CAMERA",
+        "POST_NOTIFICATIONS",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "VIBRATE",
+        "WAKE_LOCK"
+      ],
+      "useNextNotificationsApi": true,
+      "config": {
+        "googleMaps": {
+          "apiKey": "GOOGLE_MAPS_API_KEY"
+        }
+      }
+    },
+    "notification": {
+      "icon": "./assets/notification-icon.png",
+      "color": "#0B6E4F",
+      "androidMode": "default",
+      "androidCollapsedTitle": "STR Courier"
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow STR to capture photos for pickup and delivery proof."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow STR to access your photo library for upload and documentation."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow STR to track your route, ETA, and active jobs in the background.",
+          "isAndroidBackgroundLocationEnabled": true,
+          "isIosBackgroundLocationEnabled": true
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#0B6E4F"
+        }
+      ]
+    ],
+    "extra": {
+      "apiUrl": "https://api.example.com",
+      "socketUrl": "https://socket.example.com",
+      "googleMapsApiKey": "GOOGLE_MAPS_API_KEY",
+      "stripePublishableKey": "pk_test_replace_me",
+      "firebaseApiKey": "firebase-api-key",
+      "firebaseAuthDomain": "str-platform.firebaseapp.com",
+      "firebaseProjectId": "str-platform",
+      "firebaseStorageBucket": "str-platform.appspot.com",
+      "firebaseMessagingSenderId": "1234567890",
+      "firebaseAppId": "1:1234567890:web:abcdef",
+      "firebaseMeasurementId": "G-ABCDEFGH"
+    }
+  }
+}
