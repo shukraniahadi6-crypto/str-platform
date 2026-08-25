@@ -1,0 +1,102 @@
+[
+  {
+    "landfill_diversion_pct": 40.0,
+    "co2_saved_kg": 8.0,
+    "trees_equivalent": 0.37
+  },
+  {
+    "landfill_diversion_pct": 42.1,
+    "co2_saved_kg": 9.6,
+    "trees_equivalent": 0.44
+  },
+  {
+    "landfill_diversion_pct": 44.2,
+    "co2_saved_kg": 11.2,
+    "trees_equivalent": 0.51
+  },
+  {
+    "landfill_diversion_pct": 46.3,
+    "co2_saved_kg": 12.8,
+    "trees_equivalent": 0.59
+  },
+  {
+    "landfill_diversion_pct": 48.4,
+    "co2_saved_kg": 14.4,
+    "trees_equivalent": 0.66
+  },
+  {
+    "landfill_diversion_pct": 50.5,
+    "co2_saved_kg": 16.0,
+    "trees_equivalent": 0.73
+  },
+  {
+    "landfill_diversion_pct": 52.6,
+    "co2_saved_kg": 17.6,
+    "trees_equivalent": 0.81
+  },
+  {
+    "landfill_diversion_pct": 54.7,
+    "co2_saved_kg": 19.2,
+    "trees_equivalent": 0.88
+  },
+  {
+    "landfill_diversion_pct": 56.8,
+    "co2_saved_kg": 20.8,
+    "trees_equivalent": 0.96
+  },
+  {
+    "landfill_diversion_pct": 58.9,
+    "co2_saved_kg": 22.4,
+    "trees_equivalent": 1.03
+  },
+  {
+    "landfill_diversion_pct": 61.0,
+    "co2_saved_kg": 24.0,
+    "trees_equivalent": 1.1
+  },
+  {
+    "landfill_diversion_pct": 63.1,
+    "co2_saved_kg": 25.6,
+    "trees_equivalent": 1.18
+  },
+  {
+    "landfill_diversion_pct": 65.2,
+    "co2_saved_kg": 27.2,
+    "trees_equivalent": 1.25
+  },
+  {
+    "landfill_diversion_pct": 67.3,
+    "co2_saved_kg": 28.8,
+    "trees_equivalent": 1.32
+  },
+  {
+    "landfill_diversion_pct": 69.4,
+    "co2_saved_kg": 30.4,
+    "trees_equivalent": 1.4
+  },
+  {
+    "landfill_diversion_pct": 71.5,
+    "co2_saved_kg": 32.0,
+    "trees_equivalent": 1.47
+  },
+  {
+    "landfill_diversion_pct": 73.6,
+    "co2_saved_kg": 33.6,
+    "trees_equivalent": 1.54
+  },
+  {
+    "landfill_diversion_pct": 75.7,
+    "co2_saved_kg": 35.2,
+    "trees_equivalent": 1.62
+  },
+  {
+    "landfill_diversion_pct": 77.8,
+    "co2_saved_kg": 36.8,
+    "trees_equivalent": 1.69
+  },
+  {
+    "landfill_diversion_pct": 79.9,
+    "co2_saved_kg": 38.4,
+    "trees_equivalent": 1.76
+  }
+]

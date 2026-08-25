@@ -1,0 +1,82 @@
+[
+  {
+    "title": "Hazmat Essentials",
+    "category": "Safety",
+    "description": "Identify and isolate hazardous waste.",
+    "quiz_questions_json": [
+      {
+        "q": "Wear PPE?",
+        "choices": [
+          "Yes",
+          "No"
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "difficulty": "ADVANCED"
+  },
+  {
+    "title": "Heavy Lifting 101",
+    "category": "Safety",
+    "description": "Safe lift and carry methods.",
+    "quiz_questions_json": [
+      {
+        "q": "Lift with your legs?",
+        "choices": [
+          "Yes",
+          "No"
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "difficulty": "INTERMEDIATE"
+  },
+  {
+    "title": "Courier Safety Basics",
+    "category": "Safety",
+    "description": "Road and site safety fundamentals.",
+    "quiz_questions_json": [
+      {
+        "q": "Use hazard lights?",
+        "choices": [
+          "Yes",
+          "No"
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "difficulty": "BEGINNER"
+  },
+  {
+    "title": "Route Efficiency",
+    "category": "Operations",
+    "description": "Minimize drive time and fuel.",
+    "quiz_questions_json": [
+      {
+        "q": "Batch nearby jobs?",
+        "choices": [
+          "Yes",
+          "No"
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "difficulty": "BEGINNER"
+  },
+  {
+    "title": "Eco Practices",
+    "category": "Sustainability",
+    "description": "Maximize recycling and donation outcomes.",
+    "quiz_questions_json": [
+      {
+        "q": "Sort recyclable streams?",
+        "choices": [
+          "Yes",
+          "No"
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "difficulty": "INTERMEDIATE"
+  }
+]

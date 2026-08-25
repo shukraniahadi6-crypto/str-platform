@@ -1,0 +1,182 @@
+[
+  {
+    "name": "Donation Partner 1",
+    "latitude": 47.55,
+    "longitude": -122.31,
+    "upcyclable_categories": [
+      "furniture"
+    ],
+    "contact_info": {
+      "phone": "+12065550100",
+      "email": "partner1@example.org"
+    }
+  },
+  {
+    "name": "Donation Partner 2",
+    "latitude": 47.558,
+    "longitude": -122.304,
+    "upcyclable_categories": [
+      "electronics"
+    ],
+    "contact_info": {
+      "phone": "+12065550101",
+      "email": "partner2@example.org"
+    }
+  },
+  {
+    "name": "Donation Partner 3",
+    "latitude": 47.565999999999995,
+    "longitude": -122.298,
+    "upcyclable_categories": [
+      "textiles"
+    ],
+    "contact_info": {
+      "phone": "+12065550102",
+      "email": "partner3@example.org"
+    }
+  },
+  {
+    "name": "Donation Partner 4",
+    "latitude": 47.574,
+    "longitude": -122.292,
+    "upcyclable_categories": [
+      "appliances"
+    ],
+    "contact_info": {
+      "phone": "+12065550103",
+      "email": "partner4@example.org"
+    }
+  },
+  {
+    "name": "Donation Partner 5",
+    "latitude": 47.581999999999994,
+    "longitude": -122.286,
+    "upcyclable_categories": [
+      "wood"
+    ],
+    "contact_info": {
+      "phone": "+12065550104",
+      "email": "partner5@example.org"
+    }
+  },
+  {
+    "name": "Donation Partner 6",
+    "latitude": 47.589999999999996,
+    "longitude": -122.28,
+    "upcyclable_categories": [
+      "furniture"
+    ],
+    "contact_info": {
+      "phone": "+12065550105",
+      "email": "partner6@example.org"
+    }
+  },
+  {
+    "name": "Donation Partner 7",
+    "latitude": 47.598,
+    "longitude": -122.274,
+    "upcyclable_categories": [
+      "electronics"
+    ],
+    "contact_info": {
+      "phone": "+12065550106",
+      "email": "partner7@example.org"
+    }
+  },
+  {
+    "name": "Donation Partner 8",
+    "latitude": 47.605999999999995,
+    "longitude": -122.268,
+    "upcyclable_categories": [
+      "textiles"
+    ],
+    "contact_info": {
+      "phone": "+12065550107",
+      "email": "partner8@example.org"
+    }
+  },
+  {
+    "name": "Donation Partner 9",
+    "latitude": 47.614,
+    "longitude": -122.262,
+    "upcyclable_categories": [
+      "appliances"
+    ],
+    "contact_info": {
+      "phone": "+12065550108",
+      "email": "partner9@example.org"
+    }
+  },
+  {
+    "name": "Donation Partner 10",
+    "latitude": 47.622,
+    "longitude": -122.256,
+    "upcyclable_categories": [
+      "wood"
+    ],
+    "contact_info": {
+      "phone": "+12065550109",
+      "email": "partner10@example.org"
+    }
+  },
+  {
+    "name": "Donation Partner 11",
+    "latitude": 47.629999999999995,
+    "longitude": -122.25,
+    "upcyclable_categories": [
+      "furniture"
+    ],
+    "contact_info": {
+      "phone": "+12065550110",
+      "email": "partner11@example.org"
+    }
+  },
+  {
+    "name": "Donation Partner 12",
+    "latitude": 47.638,
+    "longitude": -122.244,
+    "upcyclable_categories": [
+      "electronics"
+    ],
+    "contact_info": {
+      "phone": "+12065550111",
+      "email": "partner12@example.org"
+    }
+  },
+  {
+    "name": "Donation Partner 13",
+    "latitude": 47.645999999999994,
+    "longitude": -122.238,
+    "upcyclable_categories": [
+      "textiles"
+    ],
+    "contact_info": {
+      "phone": "+12065550112",
+      "email": "partner13@example.org"
+    }
+  },
+  {
+    "name": "Donation Partner 14",
+    "latitude": 47.653999999999996,
+    "longitude": -122.232,
+    "upcyclable_categories": [
+      "appliances"
+    ],
+    "contact_info": {
+      "phone": "+12065550113",
+      "email": "partner14@example.org"
+    }
+  },
+  {
+    "name": "Donation Partner 15",
+    "latitude": 47.662,
+    "longitude": -122.226,
+    "upcyclable_categories": [
+      "wood"
+    ],
+    "contact_info": {
+      "phone": "+12065550114",
+      "email": "partner15@example.org"
+    }
+  }
+]
